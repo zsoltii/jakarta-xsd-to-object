@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<catalog xmlns='urn:oasis:names:tc:entity:xmlns:xml:catalog'>
+
+    <public publicId="http://aa.com/common" uri="common/aa.common.xsd"/>
+
+
+    <system systemId="http://aa.com/include_same_name_fields.xsd" uri="include_same_name_fields.xsd"/>
+    <system systemId="http://aa.com/include_good.xsd" uri="include_good.xsd"/>
+
+</catalog>

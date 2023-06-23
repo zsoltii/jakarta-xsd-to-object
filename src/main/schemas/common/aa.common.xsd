@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://aa.com/common"
+           elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://aa.com/common">
+    <xs:complexType name="GeneralRequest" abstract="true">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="body" type="xs:anyType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="GeneralResponse" abstract="true">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="body" type="xs:anyType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

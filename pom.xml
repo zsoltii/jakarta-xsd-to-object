@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>Payment Check Composite Service</name>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>3.1.0</version>
+    </parent>
+
+    <groupId>hu.zsoltii</groupId>
+    <artifactId>jakarta-xsd-to-object</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <jaxb-xjc.version>4.0.1</jaxb-xjc.version>
+        <cxf-xjc-hce.version>1.0.0</cxf-xjc-hce.version>
+        <jaxb2-fluent-api.version>3.0</jaxb2-fluent-api.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.evolvedbinary.maven.jvnet</groupId>
+                    <artifactId>jaxb30-maven-plugin</artifactId>
+                    <version>0.15.0</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.sun.xml.bind</groupId>
+                            <artifactId>jaxb-xjc</artifactId>
+                            <version>${jaxb-xjc.version}</version>
+
+                        </dependency>
+                        <dependency>
+                            <groupId>com.viskan</groupId>
+                            <artifactId>cxf-xjc-hce</artifactId>
+                            <version>${cxf-xjc-hce.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.jvnet.jaxb2_commons</groupId>
+                            <artifactId>jaxb2-fluent-api</artifactId>
+                            <version>${jaxb2-fluent-api.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <schemaDirectory>${project.basedir}/src/main/schemas</schemaDirectory>
+                        <bindingDirectory>${project.basedir}/src/main/bindings</bindingDirectory>
+                        <bindingIncludes>
+                            <include>bindings.xjb</include>
+                        </bindingIncludes>
+                        <encoding>UTF-8</encoding>
+                        <strict>false</strict>
+                        <extension>true</extension>
+                        <debug>false</debug>
+                        <verbose>false</verbose>
+                        <useDependenciesAsEpisodes>true</useDependenciesAsEpisodes>
+                        <forceRegenerate>false</forceRegenerate>
+                        <args>
+                            <arg>-Xhashcode-equals</arg>
+                            <arg>-Xfluent-api</arg>
+                        </args>
+                        <generateDirectory>${project.build.directory}/generated-sources/jaxb</generateDirectory>
+                        <catalog>${project.basedir}/src/main/schemas/catalog.xml</catalog>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>com.evolvedbinary.maven.jvnet</groupId>
+                <artifactId>jaxb30-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-xsd-test</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration combine.children="append">
+                            <schemaIncludes>
+                                <include>include_same_name_fields.xsd</include>
+                            </schemaIncludes>
+                            <bindingIncludes combine.children="override">
+                                <include>bindings_only_include_same_name_fields.xjb</include>
+                            </bindingIncludes>
+                            <generateDirectory>
+                                ${project.build.directory}/generated-sources/jaxb-test
+                            </generateDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-xsd</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration combine.children="append">
+                            <schemaIncludes>
+                                <include>object.xsd</include>
+                            </schemaIncludes>
+                            <generateDirectory>
+                                ${project.build.directory}/generated-sources/jaxb-xsd
+                            </generateDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-xsd-to-metainf</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/META-INF/schemas</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/src/main/schemas/applications/</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

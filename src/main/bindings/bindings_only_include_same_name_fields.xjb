@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings xmlns="https://jakarta.ee/xml/ns/jaxb"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          if-exists="true" version="3.0">
+    <bindings
+            schemaLocation="../schemas/include_same_name_fields.xsd">
+        <bindings node="//xs:element[@name='H']/xs:complexType/xs:sequence
+            /xs:element[@name='DUPLICATE_NAME']/xs:complexType">
+            <class name="DUPLICATE_NAME_H"/>
+        </bindings>
+        <schemaBindings>
+            <package name="com.aa.test"/>
+        </schemaBindings>
+    </bindings>
+
+</bindings>

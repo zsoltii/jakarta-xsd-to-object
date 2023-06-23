@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="B">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element minOccurs="1" maxOccurs="1" name="C">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element type="xsd:string" name="D"></xsd:element>
+                            <xsd:element type="xsd:string" name="E"></xsd:element>
+                            <xsd:element type="xsd:string" name="F"></xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

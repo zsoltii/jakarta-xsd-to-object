@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:ac="http://aa.com/common"
+		targetNamespace="http://aa.com/"
+		xmlns:tns="http://aa.com/"
+		elementFormDefault="qualified"
+		attributeFormDefault="unqualified">
+	<xs:import namespace="http://aa.com/common"/>
+	<xs:include schemaLocation="http://aa.com/include_good.xsd"/>
+	<xs:include schemaLocation="http://aa.com/include_same_name_fields.xsd"/>
+	<xs:element name="ARequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="ac:GeneralRequest">
+					<xs:sequence>
+						<xs:element name="body" type="tns:ARequestBodyType" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="ac:GeneralResponse">
+					<xs:sequence>
+						<xs:element name="body" type="tns:AResponseBodyType" minOccurs="0" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ARequestBodyType">
+		<xs:sequence>
+			<xs:element ref="tns:B" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AResponseBodyType">
+		<xs:sequence>
+			<xs:element ref="tns:G" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
